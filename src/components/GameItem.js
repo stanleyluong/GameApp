@@ -20,7 +20,7 @@ const GameItem = ({ game }) => {
   
           {/* Display platform icons */}
           <div className="game-platforms">
-            {/* {game.parent_platforms?.map(platformObj => (
+            {game.parent_platforms?.map(platformObj => (
               <img
                 key={platformObj.platform.id}
                 className="game-platform-icon"
@@ -28,7 +28,7 @@ const GameItem = ({ game }) => {
                 alt={platformObj.platform.name}
                 title={platformObj.platform.name}
               />
-            ))} */}
+            ))}
           </div>
         </div>
       </div>
