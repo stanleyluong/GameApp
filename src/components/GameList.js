@@ -113,13 +113,16 @@ const GameList = ({ games }) => {
         </TableHead>
         <TableBody>
           {filteredGames.map((game) => (
-            <TableRow key={game.id} component={Link} to={`/game/${game.id}`}
-            sx={{
-              cursor: "pointer",
-              "&:hover": {
-                backgroundColor: "#d3d3d3",
-              },
-            }}
+            <TableRow
+              key={game.id}
+              component={Link}
+              to={`/game/${game.id}`}
+              sx={{
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "#d3d3d3",
+                },
+              }}
             >
               <TableCell>
                 <img

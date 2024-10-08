@@ -1,5 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { Box, Card, CardContent, Typography, Grid2, CircularProgress, Chip } from "@mui/material";
+import {
+  Box,
+  Card,
+  CardContent,
+  Typography,
+  Grid2,
+  CircularProgress,
+  Chip,
+} from "@mui/material";
 import { useParams } from "react-router-dom";
 import { fetchGameDetails } from "../services/api";
 import platformIcons from "../utils/platformIcons";
@@ -27,7 +35,11 @@ const GameDetails = () => {
         <Typography variant="h3" component="h1" gutterBottom>
           {game.name}
         </Typography>
-        <img src={game.background_image} alt={game.name} style={{ width: "100%", borderRadius: "8px" }} />
+        <img
+          src={game.background_image}
+          alt={game.name}
+          style={{ width: "100%", borderRadius: "8px" }}
+        />
 
         <CardContent>
           <Typography variant="h5" gutterBottom>
@@ -39,16 +51,22 @@ const GameDetails = () => {
               <Typography variant="body1">Released: {game.released}</Typography>
             </Grid2>
             <Grid2 item xs={12} md={4}>
-              <Typography variant="body1">Metacritic: {game.metacritic}</Typography>
+              <Typography variant="body1">
+                Metacritic: {game.metacritic}
+              </Typography>
             </Grid2>
             <Grid2 item xs={12} md={4}>
-              <Typography variant="body1">Playtime: {game.playtime} hours</Typography>
+              <Typography variant="body1">
+                Playtime: {game.playtime} hours
+              </Typography>
             </Grid2>
             <Grid2 item xs={12} md={4}>
               <Typography variant="body1">Rating: {game.rating}</Typography>
             </Grid2>
             <Grid2 item xs={12} md={4}>
-              <Typography variant="body1">Rating Count: {game.ratings_count}</Typography>
+              <Typography variant="body1">
+                Rating Count: {game.ratings_count}
+              </Typography>
             </Grid2>
           </Grid2>
 
@@ -69,10 +87,17 @@ const GameDetails = () => {
                   }}
                 >
                   <img
-                    src={platformIcons[platformObj.platform.name] || "default-platform-icon.svg"}
+                    src={
+                      platformIcons[platformObj.platform.name] ||
+                      "default-platform-icon.svg"
+                    }
                     alt={platformObj.platform.name}
                     title={platformObj.platform.name}
-                    style={{ width: "20px", height: "20px", filter: "brightness(0) invert(1)" }}
+                    style={{
+                      width: "20px",
+                      height: "20px",
+                      filter: "brightness(0) invert(1)",
+                    }}
                   />
                 </Box>
               ))}
@@ -82,28 +107,44 @@ const GameDetails = () => {
           <Box mt={2}>
             <Typography variant="h6">Genres:</Typography>
             {game.genres.map((genre) => (
-              <Chip key={genre.id} label={genre.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+              <Chip
+                key={genre.id}
+                label={genre.name}
+                sx={{ marginRight: "5px", marginBottom: "5px" }}
+              />
             ))}
           </Box>
 
           <Box mt={2}>
             <Typography variant="h6">Stores:</Typography>
             {game.stores.map((store) => (
-              <Chip key={store.id} label={store.store.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+              <Chip
+                key={store.id}
+                label={store.store.name}
+                sx={{ marginRight: "5px", marginBottom: "5px" }}
+              />
             ))}
           </Box>
 
           <Box mt={2}>
             <Typography variant="h6">Developers:</Typography>
             {game.developers.map((developer) => (
-              <Chip key={developer.id} label={developer.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+              <Chip
+                key={developer.id}
+                label={developer.name}
+                sx={{ marginRight: "5px", marginBottom: "5px" }}
+              />
             ))}
           </Box>
 
           <Box mt={2}>
             <Typography variant="h6">Publishers:</Typography>
             {game.publishers.map((publisher) => (
-              <Chip key={publisher.id} label={publisher.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+              <Chip
+                key={publisher.id}
+                label={publisher.name}
+                sx={{ marginRight: "5px", marginBottom: "5px" }}
+              />
             ))}
           </Box>
 
@@ -111,7 +152,11 @@ const GameDetails = () => {
             <Box mt={2}>
               <Typography variant="h6">
                 Official Website:{" "}
-                <a href={game.website} target="_blank" rel="noopener noreferrer">
+                <a
+                  href={game.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
                   {game.website}
                 </a>
               </Typography>

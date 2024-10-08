@@ -22,17 +22,20 @@ GameApp is a modern web application that allows users to search for and explore 
 ## Installation and Setup
 
 1. **Clone the repository**:
+
    ```bash
    git clone https://github.com/stanleyluong/game-app.git
    cd game-app
    ```
 
 2. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 3. **Set up RAWG API**:
+
    - Go to [RAWG.io](https://rawg.io/apidocs) and get your API key.
    - Add your API key in a `.env` file in the root directory:
      ```
@@ -40,6 +43,7 @@ GameApp is a modern web application that allows users to search for and explore 
      ```
 
 4. **Run the application**:
+
    ```bash
    npm start
    ```
@@ -73,6 +77,7 @@ src/
 ## API Integration
 
 The application uses the **RAWG API** to fetch game data. To use the API:
+
 - Sign up for an API key at [RAWG.io](https://rawg.io/apidocs).
 - Use the API key in your `.env` file.
 
@@ -81,7 +86,7 @@ The application uses the **RAWG API** to fetch game data. To use the API:
 ```js
 const fetchGames = async (query, genre, score, platform) => {
   const response = await fetch(
-    `https://api.rawg.io/api/games?key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}&genres=${genre}&platforms=${platform}&metacritic=${score}`
+    `https://api.rawg.io/api/games?key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}&genres=${genre}&platforms=${platform}&metacritic=${score}`,
   );
   const data = await response.json();
   return data.results;

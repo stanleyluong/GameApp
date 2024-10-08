@@ -60,7 +60,7 @@ function App() {
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
-      <Router>
+      <Router basename="/GameApp">
         <Box
           sx={{
             display: "flex",
@@ -83,31 +83,31 @@ function App() {
             </ToggleButton>
           </ToggleButtonGroup>
           <Link to="/">
-  <img
-    src={logo}
-    alt="GameApp Logo"
-    style={{ 
-      width: "100px", 
-      height: "100px", 
-      marginRight: "10px", 
-      borderRadius: "12px" // Add rounded corners
-    }}
-  />
-</Link>
+            <img
+              src={logo}
+              alt="GameApp Logo"
+              style={{
+                width: "100px",
+                height: "100px",
+                marginRight: "10px",
+                borderRadius: "12px", // Add rounded corners
+              }}
+            />
+          </Link>
 
-            <ToggleButtonGroup
-              value={view}
-              exclusive
-              onChange={handleViewChange}
-              aria-label="view toggle"
-            >
-              <ToggleButton value="table" aria-label="table view">
-                <ViewListIcon />
-              </ToggleButton>
-              <ToggleButton value="list" aria-label="list view">
-                <GridViewIcon />
-              </ToggleButton>
-            </ToggleButtonGroup>
+          <ToggleButtonGroup
+            value={view}
+            exclusive
+            onChange={handleViewChange}
+            aria-label="view toggle"
+          >
+            <ToggleButton value="table" aria-label="table view">
+              <ViewListIcon />
+            </ToggleButton>
+            <ToggleButton value="list" aria-label="list view">
+              <GridViewIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
         </Box>
         <Routes>
           <Route path="/" element={<Home darkMode={darkMode} view={view} />} />

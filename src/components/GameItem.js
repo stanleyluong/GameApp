@@ -17,7 +17,7 @@ const GameItem = ({ game }) => {
           image={game.background_image || "placeholder.jpg"}
           alt={game.name}
         />
-        
+
         {/* Game Details */}
         <CardContent>
           <Typography gutterBottom variant="h6" component="div" color="#fff">
@@ -29,7 +29,7 @@ const GameItem = ({ game }) => {
           <Typography variant="body2" color="#b0b0b0">
             Metacritic: {game.metacritic || "N/A"}
           </Typography>
-          
+
           {/* Game Platforms */}
           <Box sx={{ display: "flex", gap: 1, marginTop: "10px" }}>
             {game.parent_platforms?.map((platformObj) => (

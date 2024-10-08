@@ -1,78 +1,74 @@
 .home-container {
-    flex-direction: row;
-    padding: 20px;
-    justify-content: flex-start;
+  flex-direction: row;
+  padding: 20px;
+  justify-content: flex-start;
+}
+
+.navbar {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
+}
+
+.game-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: center;
+  flex: 1;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  list-style: none;
+  padding: 0;
+}
+
+.pagination a {
+  display: block;
+  padding: 8px 16px;
+  margin: 5px;
+  background-color: #2c2c2c;
+  color: #f0f0f0;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.pagination a:hover {
+  background-color: #3b3b3b;
+}
+
+.pagination .active a {
+  background-color: #6b6a6a;
+}
+
+.store,
+.developer,
+.publisher,
+.genre {
+  display: inline-block;
+  padding: 5px 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  border-radius: 5px;
+  font-size: 14px;
+  color: #333;
+  white-space: nowrap;
+}
+
+.store:hover,
+.developer:hover,
+.publisher:hover,
+.genre:hover,
+.platform:hover {
+  background-color: #ddd;
+}
+
+@media (max-width: 768px) {
+  .home-container {
+    flex-direction: column;
   }
-  
-  .navbar {
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-  }
-  
-  .game-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-items: center;
-    flex: 1;
-  }
-  
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-    list-style: none;
-    padding: 0;
-  }
-  
-  .pagination a {
-    display: block;
-    padding: 8px 16px;
-    margin: 5px;
-    background-color: #2c2c2c;
-    color: #f0f0f0;
-    border-radius: 5px;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-  }
-  
-  .pagination a:hover {
-    background-color: #3b3b3b;
-  }
-  
-  .pagination .active a {
-    background-color: #6b6a6a;
-  }
-  
-  
-  .store,
-  .developer,
-  .publisher,
-  .genre {
-    display: inline-block;
-    padding: 5px 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    background-color: #f0f0f0;
-    border-radius: 5px;
-    font-size: 14px;
-    color: #333;
-    white-space: nowrap;
-  }
-  
-  
-  .store:hover,
-  .developer:hover,
-  .publisher:hover,
-  .genre:hover,
-  .platform:hover {
-    background-color: #ddd;
-  }
-  
-  @media (max-width: 768px) {
-  
-    .home-container {
-      flex-direction: column;
-    }
-  }
-  
+}
