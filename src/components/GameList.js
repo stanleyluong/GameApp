@@ -57,7 +57,7 @@ const GameList = ({ games }) => {
       : (a, b) => -descendingComparator(a, b, orderBy);
   };
 
-  const filteredGames = sortGames(games, getComparator(order, orderBy));
+  const filteredGames = games ? sortGames(games, getComparator(order, orderBy)) : [];
 
   if (loading) {
     return (
