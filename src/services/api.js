@@ -1,5 +1,5 @@
 const apiKey = process.env.REACT_APP_RAWG_API_KEY;
-const apiUrl = process.env.REACT_APP_RAWG_API_URL;
+const apiUrl = process.env.REACT_APP_RAWG_API_URL || "https://api.rawg.io/api";
 
 export const fetchGames = async (
   query = "",

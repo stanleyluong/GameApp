@@ -46,7 +46,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
   const handleScoreChange = (event, newValue) => {
     setScore(newValue);
   };
-  console.log("darkmode", darkMode);
 
   const textFieldColor = () => {
     if (darkMode) {
