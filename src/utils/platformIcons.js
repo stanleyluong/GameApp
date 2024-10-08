@@ -20,7 +20,7 @@ const platformIcons = {
   Android: AndroidIcon,
   SEGA: SEGAIcon,
   Web: WebIcon,
-  "Apple-Macintosh": AppleMacintoshIcon,
+  "Apple Macintosh": AppleMacintoshIcon,
   "Commodore Amiga": CommodoreAmigaIcon,
 };
 
