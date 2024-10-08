@@ -1,8 +1,9 @@
 {
   "files": {
     "main.css": "/GameApp/static/css/main.6a064a8a.css",
-    "main.js": "/GameApp/static/js/main.7c39169a.js",
+    "main.js": "/GameApp/static/js/main.4a522baa.js",
     "static/js/453.bd0f8ebc.chunk.js": "/GameApp/static/js/453.bd0f8ebc.chunk.js",
+    "static/media/no_games-Found.webp": "/GameApp/static/media/no_games-Found.db41e26a65d57d35e2df.webp",
     "static/media/logo.webp": "/GameApp/static/media/logo.178b526d0761c5212f2c.webp",
     "static/media/Linux.svg": "/GameApp/static/media/Linux.e08349ed83cb12ece9bec924f3d4bef1.svg",
     "static/media/Web.svg": "/GameApp/static/media/Web.52ae85dcab875db50f73cea0dccf1c04.svg",
@@ -18,11 +19,11 @@
     "static/media/Commodore-Amiga.svg": "/GameApp/static/media/Commodore-Amiga.d2eb7fd67227d53ef8a48b302d24f8dc.svg",
     "static/media/PC.svg": "/GameApp/static/media/PC.1eb2ae366b46e9c7cd72873a6650ecca.svg",
     "main.6a064a8a.css.map": "/GameApp/static/css/main.6a064a8a.css.map",
-    "main.7c39169a.js.map": "/GameApp/static/js/main.7c39169a.js.map",
+    "main.4a522baa.js.map": "/GameApp/static/js/main.4a522baa.js.map",
     "453.bd0f8ebc.chunk.js.map": "/GameApp/static/js/453.bd0f8ebc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a064a8a.css",
-    "static/js/main.7c39169a.js"
+    "static/js/main.4a522baa.js"
   ]
 }
