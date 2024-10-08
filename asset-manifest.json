@@ -1,16 +1,27 @@
 {
   "files": {
     "main.css": "/GameApp/static/css/main.6a064a8a.css",
-    "main.js": "/GameApp/static/js/main.649b0dc5.js",
+    "main.js": "/GameApp/static/js/main.fc70b9f8.js",
     "static/js/453.bd0f8ebc.chunk.js": "/GameApp/static/js/453.bd0f8ebc.chunk.js",
     "static/media/logo.webp": "/GameApp/static/media/logo.178b526d0761c5212f2c.webp",
+    "static/media/Linux.svg": "/GameApp/static/media/Linux.e08349ed83cb12ece9bec924f3d4bef1.svg",
+    "static/media/Web.svg": "/GameApp/static/media/Web.52ae85dcab875db50f73cea0dccf1c04.svg",
+    "static/media/Android.svg": "/GameApp/static/media/Android.ef4997b7782caa544f442954df607657.svg",
+    "static/media/Xbox.svg": "/GameApp/static/media/Xbox.73ae45c0cec2e50a903d3ab1f821f069.svg",
+    "static/media/SEGA.svg": "/GameApp/static/media/SEGA.73737f843661a60d1ffcb97ba550c08a.svg",
+    "static/media/Apple-Macintosh.svg": "/GameApp/static/media/Apple-Macintosh.1be1267a0da8e718fb07e270e018e43f.svg",
     "index.html": "/GameApp/index.html",
+    "static/media/PlayStation.svg": "/GameApp/static/media/PlayStation.ecb9f256bdbf6e0d2914b23c25096282.svg",
+    "static/media/iOS.svg": "/GameApp/static/media/iOS.bc5873d5a24ddbfc91fb151aed3db3c1.svg",
+    "static/media/Nintendo.svg": "/GameApp/static/media/Nintendo.04fcc2fb82e356e8eabdf981c94862d3.svg",
+    "static/media/Commodore-Amiga.svg": "/GameApp/static/media/Commodore-Amiga.d2eb7fd67227d53ef8a48b302d24f8dc.svg",
+    "static/media/PC.svg": "/GameApp/static/media/PC.1eb2ae366b46e9c7cd72873a6650ecca.svg",
     "main.6a064a8a.css.map": "/GameApp/static/css/main.6a064a8a.css.map",
-    "main.649b0dc5.js.map": "/GameApp/static/js/main.649b0dc5.js.map",
+    "main.fc70b9f8.js.map": "/GameApp/static/js/main.fc70b9f8.js.map",
     "453.bd0f8ebc.chunk.js.map": "/GameApp/static/js/453.bd0f8ebc.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.6a064a8a.css",
-    "static/js/main.649b0dc5.js"
+    "static/js/main.fc70b9f8.js"
   ]
 }
