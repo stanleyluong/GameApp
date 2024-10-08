@@ -9,6 +9,7 @@ import SEGAIcon from "../assets/SEGA.svg";
 import WebIcon from "../assets/Web.svg";
 import AppleMacintoshIcon from "../assets/Apple-Macintosh.svg";
 import CommodoreAmigaIcon from "../assets/Commodore-Amiga.svg";
+import AtariIcon from "../assets/Atari.svg";
 
 const platformIcons = {
   PC: PCIcon,
@@ -22,6 +23,7 @@ const platformIcons = {
   Web: WebIcon,
   "Apple Macintosh": AppleMacintoshIcon,
   "Commodore / Amiga": CommodoreAmigaIcon,
+  "Atari": AtariIcon
 };
 
 export default platformIcons;

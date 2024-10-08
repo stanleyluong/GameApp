@@ -1,5 +1,3 @@
-// /src/components/SearchBar/SearchBar.js
-
 import {
   Box,
   Button,
@@ -14,11 +12,18 @@ import {
 import React, { useEffect, useState } from "react";
 import { fetchGenres, fetchPlatforms } from "../services/api";
 
-const SearchBar = ({ onSearch, darkMode }) => {
-  const [query, setQuery] = useState("");
-  const [genre, setGenre] = useState("");
-  const [platform, setPlatform] = useState("");
-  const [score, setScore] = useState([0, 100]);
+const SearchBar = ({
+  onSearch,
+  darkMode,
+  query,
+  genre,
+  platform,
+  score,
+  setSearchQuery,
+  setGenre,
+  setPlatform,
+  setScore,
+}) => {
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
 
@@ -26,15 +31,8 @@ const SearchBar = ({ onSearch, darkMode }) => {
     const loadFilters = async () => {
       const genresData = await fetchGenres();
       const platformsData = await fetchPlatforms();
-      const sortedGenres = genresData.sort((a, b) =>
-        a.name.localeCompare(b.name),
-      );
-      const sortedPlatforms = platformsData.sort((a, b) =>
-        a.name.localeCompare(b.name),
-      );
-
-      setGenres(sortedGenres);
-      setPlatforms(sortedPlatforms);
+      setGenres(genresData);
+      setPlatforms(platformsData);
     };
     loadFilters();
   }, []);
@@ -43,58 +41,32 @@ const SearchBar = ({ onSearch, darkMode }) => {
     e.preventDefault();
     onSearch(query, genre, score, platform);
   };
+
   const handleScoreChange = (event, newValue) => {
     setScore(newValue);
   };
 
-  const textFieldColor = () => {
-    if (darkMode) {
-      return score[0] === 0 && score[1] === 100 ? "#c1c1c1" : "#fff";
-    } else {
-      return score[0] === 0 && score[1] === 100 ? "#717171" : "black";
-    }
-  };
-  const border = darkMode
-    ? "1px solid rgba(255, 255, 255, 0.23)"
-    : "1px solid silver";
-  const borderHover = darkMode ? "#fff" : "black";
-  const marks = [
-    { value: 0, label: "0" },
-    { value: 10, label: "10" },
-    { value: 20, label: "20" },
-    { value: 30, label: "30" },
-    { value: 40, label: "40" },
-    { value: 50, label: "50" },
-    { value: 60, label: "60" },
-    { value: 70, label: "70" },
-    { value: 80, label: "80" },
-    { value: 90, label: "90" },
-    { value: 100, label: "100" },
-  ];
+  const textFieldColor = darkMode
+    ? score[0] === 0 && score[1] === 100
+      ? "#c1c1c1"
+      : "#fff"
+    : score[0] === 0 && score[1] === 100
+    ? "#717171"
+    : "black";
 
   return (
-    <Box
-      component="form"
-      onSubmit={handleSubmit}
-      sx={{ marginBottom: 2 }}
-      className="navbar"
-    >
+    <Box component="form" onSubmit={handleSubmit} sx={{ marginBottom: 2 }}>
       <TextField
-        className="navbar-item"
         label="Search for a game..."
         variant="outlined"
         value={query}
-        onChange={(e) => setQuery(e.target.value)}
+        onChange={(e) => setSearchQuery(e.target.value)}
         sx={{ marginBottom: 2, width: "100%" }}
       />
 
-      <FormControl fullWidth sx={{ marginBottom: 2 }} className="navbar-item">
+      <FormControl fullWidth sx={{ marginBottom: 2 }}>
         <InputLabel>Genre</InputLabel>
-        <Select
-          label="Genre"
-          value={genre}
-          onChange={(e) => setGenre(e.target.value)}
-        >
+        <Select value={genre} onChange={(e) => setGenre(e.target.value)}>
           <MenuItem value="">All Genres</MenuItem>
           {genres.map((g) => (
             <MenuItem key={g.id} value={g.id}>
@@ -104,13 +76,9 @@ const SearchBar = ({ onSearch, darkMode }) => {
         </Select>
       </FormControl>
 
-      <FormControl fullWidth sx={{ marginBottom: 2 }} className="navbar-item">
+      <FormControl fullWidth sx={{ marginBottom: 2 }}>
         <InputLabel>Platform</InputLabel>
-        <Select
-          label="Platform"
-          value={platform}
-          onChange={(e) => setPlatform(e.target.value)}
-        >
+        <Select value={platform} onChange={(e) => setPlatform(e.target.value)}>
           <MenuItem value="">All Platforms</MenuItem>
           {platforms.map((p) => (
             <MenuItem key={p.id} value={p.id}>
@@ -120,54 +88,21 @@ const SearchBar = ({ onSearch, darkMode }) => {
         </Select>
       </FormControl>
 
-      <FormControl
-        className="navbar-item"
-        fullWidth
-        sx={{
-          marginBottom: 2,
-          borderRadius: "4px",
-          border: border,
-          transition: "border-color 0.3s ease",
-          "&:hover": {
-            borderColor: borderHover,
-          },
-        }}
-      >
-        <Typography
-          sx={{
-            fontWeight: 400,
-            color: textFieldColor,
-            paddingLeft: "12px",
-            paddingTop: "10px",
-          }}
-        >
+      <FormControl fullWidth sx={{ marginBottom: 2 }}>
+        <Typography sx={{ fontWeight: 400, color: textFieldColor, paddingLeft: "12px", paddingTop: "10px" }}>
           Metacritic Score Range
         </Typography>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Slider
-            label="Metacritic"
-            className="navbar-item"
-            value={score}
-            onChange={handleScoreChange}
-            valueLabelDisplay="auto"
-            min={0}
-            max={100}
-            step={1}
-            marks={marks}
-            sx={{
-              width: "98%",
-              color: "grey",
-            }}
-          />
-        </Box>
+        <Slider
+          value={score}
+          onChange={handleScoreChange}
+          valueLabelDisplay="auto"
+          min={0}
+          max={100}
+          step={1}
+        />
       </FormControl>
 
-      <Button
-        className="navbar-item"
-        variant="contained"
-        type="submit"
-        fullWidth
-      >
+      <Button variant="contained" type="submit" fullWidth>
         Search
       </Button>
     </Box>

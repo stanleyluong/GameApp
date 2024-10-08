@@ -12,25 +12,19 @@ import {
   Box,
 } from "@mui/material";
 import platformIcons from "../utils/platformIcons";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Use for programmatic navigation
 
 const GameList = ({ games }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(true);
-  const [isEmpty, setIsEmpty] = useState(false);  // To track empty result
+  const navigate = useNavigate(); // Initialize navigate
 
   useEffect(() => {
-    if (Array.isArray(games)) {
-      if (games.length > 0) {
-        setLoading(false);
-        setIsEmpty(false);
-      } else {
-        setLoading(false);
-        setIsEmpty(true);  // Empty array case
-      }
+    if (Array.isArray(games) && games.length > 0) {
+      setLoading(false);
     } else {
-      setLoading(true);  // In case the data is still loading
+      setLoading(true);
     }
   }, [games]);
 
@@ -66,9 +60,10 @@ const GameList = ({ games }) => {
       : (a, b) => -descendingComparator(a, b, orderBy);
   };
 
-  const filteredGames = Array.isArray(games) ? sortGames(games, getComparator(order, orderBy)) : [];
+  const filteredGames = Array.isArray(games)
+    ? sortGames(games, getComparator(order, orderBy))
+    : [];
 
-  // Loading State
   if (loading) {
     return (
       <Box
@@ -83,10 +78,18 @@ const GameList = ({ games }) => {
     );
   }
 
-  // If no games are found
-  if (isEmpty) {
-    return <Box sx={{ textAlign: "center", padding: "20px" }}>No games found.</Box>;
+  if (!Array.isArray(filteredGames) || filteredGames.length === 0) {
+    return (
+      <Box sx={{ textAlign: "center", padding: "20px" }}>
+        No games found.
+      </Box>
+    );
   }
+
+  // Function to handle row click
+  const handleRowClick = (gameId) => {
+    navigate(`/game/${gameId}`); // Navigate to the game details page
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -129,8 +132,7 @@ const GameList = ({ games }) => {
           {filteredGames.map((game) => (
             <TableRow
               key={game.id}
-              component={Link}
-              to={`/game/${game.id}`}
+              onClick={() => handleRowClick(game.id)} // Use onClick to trigger navigation
               sx={{
                 cursor: "pointer",
                 "&:hover": {

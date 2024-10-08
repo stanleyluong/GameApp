@@ -4,7 +4,7 @@ import {
   Card,
   CardContent,
   Typography,
-  Grid2,
+  Grid,
   CircularProgress,
   Chip,
 } from "@mui/material";
@@ -28,7 +28,7 @@ const GameDetails = () => {
   }, [id]);
 
   if (loading) return <CircularProgress />;
-
+// console.log('gamedata', game)
   return (
     <Box sx={{ padding: "20px" }}>
       <Card sx={{ padding: 2 }}>
@@ -46,29 +46,29 @@ const GameDetails = () => {
             Game Details
           </Typography>
 
-          <Grid2 container spacing={2}>
-            <Grid2 item xs={12} md={4}>
+          <Grid container spacing={2}>
+            <Grid item xs={12} md={4}>
               <Typography variant="body1">Released: {game.released}</Typography>
-            </Grid2>
-            <Grid2 item xs={12} md={4}>
+            </Grid>
+            <Grid item xs={12} md={4}>
               <Typography variant="body1">
                 Metacritic: {game.metacritic}
               </Typography>
-            </Grid2>
-            <Grid2 item xs={12} md={4}>
+            </Grid>
+            <Grid item xs={12} md={4}>
               <Typography variant="body1">
                 Playtime: {game.playtime} hours
               </Typography>
-            </Grid2>
-            <Grid2 item xs={12} md={4}>
+            </Grid>
+            <Grid item xs={12} md={4}>
               <Typography variant="body1">Rating: {game.rating}</Typography>
-            </Grid2>
-            <Grid2 item xs={12} md={4}>
+            </Grid>
+            <Grid item xs={12} md={4}>
               <Typography variant="body1">
                 Rating Count: {game.ratings_count}
               </Typography>
-            </Grid2>
-          </Grid2>
+            </Grid>
+          </Grid>
 
           <Box mt={2}>
             <Typography variant="h6">Platforms:</Typography>
@@ -88,8 +88,7 @@ const GameDetails = () => {
                 >
                   <img
                     src={
-                      platformIcons[platformObj.platform.name] ||
-                      "default-platform-icon.svg"
+                      platformIcons[platformObj.platform.name] 
                     }
                     alt={platformObj.platform.name}
                     title={platformObj.platform.name}
@@ -170,17 +169,17 @@ const GameDetails = () => {
 
           <Box mt={2}>
             <Typography variant="h6">Screenshots:</Typography>
-            <Grid2 container spacing={2}>
+            <Grid container spacing={2}>
               {game.screenshots?.map((screenshot, index) => (
-                <Grid2 item xs={12} sm={6} md={4} key={index}>
+                <Grid item xs={12} sm={6} md={4} key={index}>
                   <img
                     src={screenshot.image}
                     alt={`Screenshot ${index + 1}`}
                     style={{ width: "100%", borderRadius: "8px" }}
                   />
-                </Grid2>
+                </Grid>
               ))}
-            </Grid2>
+            </Grid>
           </Box>
         </CardContent>
       </Card>
