@@ -157,7 +157,7 @@ const GameList = ({ games }) => {
               <TableCell align="right">{game.metacritic}</TableCell>
               <TableCell align="right">
                 <Box display="flex" justifyContent="flex-end" gap={1}>
-                  {game?.parent_platforms.map((platformObj) => (
+                  {game?.parent_platforms?.map((platformObj) => (
                     <Box
                       key={platformObj.platform.id}
                       sx={{
