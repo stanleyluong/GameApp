@@ -21,7 +21,7 @@ const GameGrid = ({ games }) => {
         ))}
       </div>
 
-      {games.length > itemsPerPage && (
+      {games?.length > itemsPerPage && (
         <ReactPaginate
           previousLabel={"Previous"}
           nextLabel={"Next"}
