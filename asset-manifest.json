@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/GameApp/static/css/main.6a064a8a.css",
+    "main.js": "/GameApp/static/js/main.b12022be.js",
+    "static/js/453.bd0f8ebc.chunk.js": "/GameApp/static/js/453.bd0f8ebc.chunk.js",
+    "static/media/logo.webp": "/GameApp/static/media/logo.178b526d0761c5212f2c.webp",
+    "index.html": "/GameApp/index.html",
+    "main.6a064a8a.css.map": "/GameApp/static/css/main.6a064a8a.css.map",
+    "main.b12022be.js.map": "/GameApp/static/js/main.b12022be.js.map",
+    "453.bd0f8ebc.chunk.js.map": "/GameApp/static/js/453.bd0f8ebc.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.6a064a8a.css",
+    "static/js/main.b12022be.js"
+  ]
+}
