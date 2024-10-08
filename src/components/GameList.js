@@ -18,10 +18,19 @@ const GameList = ({ games }) => {
   const [order, setOrder] = useState("asc");
   const [orderBy, setOrderBy] = useState("name");
   const [loading, setLoading] = useState(true);
+  const [isEmpty, setIsEmpty] = useState(false);  // To track empty result
 
   useEffect(() => {
-    if (games.length > 0) {
-      setLoading(false);
+    if (Array.isArray(games)) {
+      if (games.length > 0) {
+        setLoading(false);
+        setIsEmpty(false);
+      } else {
+        setLoading(false);
+        setIsEmpty(true);  // Empty array case
+      }
+    } else {
+      setLoading(true);  // In case the data is still loading
     }
   }, [games]);
 
@@ -57,21 +66,26 @@ const GameList = ({ games }) => {
       : (a, b) => -descendingComparator(a, b, orderBy);
   };
 
-  const filteredGames = games ? sortGames(games, getComparator(order, orderBy)) : [];
+  const filteredGames = Array.isArray(games) ? sortGames(games, getComparator(order, orderBy)) : [];
 
+  // Loading State
   if (loading) {
     return (
       <Box
         sx={{
           display: "flex",
           justifyContent: "center",
-          alignItems: "center",
           height: "100vh",
         }}
       >
         <CircularProgress />
       </Box>
     );
+  }
+
+  // If no games are found
+  if (isEmpty) {
+    return <Box sx={{ textAlign: "center", padding: "20px" }}>No games found.</Box>;
   }
 
   return (
@@ -112,7 +126,7 @@ const GameList = ({ games }) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {filteredGames?.map((game) => (
+          {filteredGames.map((game) => (
             <TableRow
               key={game.id}
               component={Link}

@@ -21,7 +21,7 @@ const platformIcons = {
   SEGA: SEGAIcon,
   Web: WebIcon,
   "Apple Macintosh": AppleMacintoshIcon,
-  "Commodore Amiga": CommodoreAmigaIcon,
+  "Commodore / Amiga": CommodoreAmigaIcon,
 };
 
 export default platformIcons;

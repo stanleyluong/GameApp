@@ -1,4 +1,4 @@
-import { CircularProgress } from "@mui/material";
+import { CircularProgress, Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { fetchGames } from "../services/api";
 import GameGrid from "./GameGrid";
@@ -32,8 +32,18 @@ const Home = (props) => {
       </div>
       <div>
         {loading ? (
-          <CircularProgress />
-        ) : props.view === "table" ? (
+
+      <Box
+        sx={{
+          display: "flex",
+          justifyContent: "center",
+          height: "100vh",
+        }}
+      >
+        <CircularProgress />
+      </Box>
+    
+       ) : props.view === "table" ? (
           <GameList games={games} onSearch={handleSearch} />
         ) : (
           <GameGrid games={games} onSearch={handleSearch} />
