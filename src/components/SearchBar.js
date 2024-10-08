@@ -13,17 +13,15 @@ import {
 } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { fetchGenres, fetchPlatforms } from "../services/api";
-import { dark } from "@mui/material/styles/createPalette";
 
 const SearchBar = ({ onSearch, darkMode }) => {
   const [query, setQuery] = useState("");
   const [genre, setGenre] = useState("");
   const [platform, setPlatform] = useState("");
-  const [score, setScore] = useState([0, 100]); // Set score as a range
+  const [score, setScore] = useState([0, 100]);
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
 
-  // Fetch genres and platforms on component mount
   useEffect(() => {
     const loadFilters = async () => {
       const genresData = await fetchGenres();
@@ -43,30 +41,24 @@ const SearchBar = ({ onSearch, darkMode }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Ensure that we are passing the date in the correct format
     onSearch(query, genre, score, platform);
   };
   const handleScoreChange = (event, newValue) => {
-    setScore(newValue); // Update score state when slider changes
+    setScore(newValue);
   };
-  // const getLabelColor = () => {
-  //   return score[0] === 0 && score[1] === 100 ? "#717171" : "black";
-  // };
-  console.log("darkmode", darkMode.darkMode);
+  console.log("darkmode", darkMode);
 
   const textFieldColor = () => {
-    if (darkMode.darkMode) {
+    if (darkMode) {
       return score[0] === 0 && score[1] === 100 ? "#c1c1c1" : "#fff";
     } else {
       return score[0] === 0 && score[1] === 100 ? "#717171" : "black";
     }
   };
-  // const textFieldColor = darkMode ? "#fff" : "#000"; // Change text color based on dark mode
-  // const borderColor = darkMode ?  "" : "rgb(203, 203, 203" ;
-  const border = darkMode.darkMode
+  const border = darkMode
     ? "1px solid rgba(255, 255, 255, 0.23)"
     : "1px solid silver";
-  const borderHover = darkMode.darkMode ? "#fff" : "black";
+  const borderHover = darkMode ? "#fff" : "black";
   const marks = [
     { value: 0, label: "0" },
     { value: 10, label: "10" },
@@ -88,7 +80,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
       sx={{ marginBottom: 2 }}
       className="navbar"
     >
-      {/* Search Input */}
       <TextField
         className="navbar-item"
         label="Search for a game..."
@@ -98,7 +89,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
         sx={{ marginBottom: 2, width: "100%" }}
       />
 
-      {/* Genre Filter */}
       <FormControl fullWidth sx={{ marginBottom: 2 }} className="navbar-item">
         <InputLabel>Genre</InputLabel>
         <Select
@@ -115,7 +105,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
         </Select>
       </FormControl>
 
-      {/* Platform Filter */}
       <FormControl fullWidth sx={{ marginBottom: 2 }} className="navbar-item">
         <InputLabel>Platform</InputLabel>
         <Select
@@ -139,9 +128,9 @@ const SearchBar = ({ onSearch, darkMode }) => {
           marginBottom: 2,
           borderRadius: "4px",
           border: border,
-          transition: "border-color 0.3s ease", // Only the border will transition
+          transition: "border-color 0.3s ease",
           "&:hover": {
-            borderColor: borderHover, // Change only the border color on hover
+            borderColor: borderHover,
           },
         }}
       >
@@ -167,7 +156,7 @@ const SearchBar = ({ onSearch, darkMode }) => {
             step={1}
             marks={marks}
             sx={{
-              width: "98%", // Adjust this value to control slider width
+              width: "98%",
               color: "grey",
             }}
           />
@@ -179,7 +168,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
         variant="contained"
         type="submit"
         fullWidth
-        // sx={{ backgroundColor: "#2c2c2c" }}
       >
         Search
       </Button>

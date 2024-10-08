@@ -1,4 +1,3 @@
-// /src/utils/platformIcons.js
 const platformIcons = {
   PC: "/PC.svg",
   PlayStation: "/PlayStation.svg",

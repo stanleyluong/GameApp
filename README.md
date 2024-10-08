@@ -1,70 +1,97 @@
-# Getting Started with Create React App
+# GameApp
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+GameApp is a modern web application that allows users to search for and explore details about various video games. It is built with React, uses Material-UI for design, and integrates with the RAWG API to fetch game data such as release dates, ratings, genres, platforms, and more. The app supports dark and light themes, table and card view toggling, and includes pagination for game lists.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Search Bar**: Users can search for games by name, genre, platform, and Metacritic score.
+- **Game List**: Displays a list of games with options to toggle between a card grid and table view.
+- **Game Details**: Clicking on a game shows detailed information including ratings, genres, platforms, and screenshots.
+- **Dark Mode**: Switch between light and dark themes.
+- **Responsive Design**: Optimized for mobile and desktop use with responsive styling.
+- **Pagination**: View more games with pagination.
 
-### `npm start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **React**: For building the user interface.
+- **Material-UI**: Provides a modern and responsive design with pre-built components.
+- **React Router**: For client-side routing to manage the game list and details pages.
+- **RAWG API**: Used to fetch game data such as names, ratings, and platform information.
+- **SASS/SCSS**: For styling, including responsive design and dark mode.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation and Setup
 
-### `npm test`
+1. **Clone the repository**:
+   ```bash
+   git clone https://github.com/stanleyluong/game-app.git
+   cd game-app
+   ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+2. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-### `npm run build`
+3. **Set up RAWG API**:
+   - Go to [RAWG.io](https://rawg.io/apidocs) and get your API key.
+   - Add your API key in a `.env` file in the root directory:
+     ```
+     REACT_APP_RAWG_API_KEY=your-api-key
+     ```
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+4. **Run the application**:
+   ```bash
+   npm start
+   ```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+   The app will start running locally at [http://localhost:3000](http://localhost:3000).
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Usage
 
-### `npm run eject`
+- **Search for games**: Use the search bar to find games by name, genre, platform, or Metacritic score.
+- **Toggle views**: Use the buttons to switch between the table view and grid (card) view.
+- **Dark/Light mode**: Toggle between dark and light modes using the button in the top-right corner.
+- **Pagination**: Navigate between pages to see more games.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Project Structure
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```
+src/
+├── components/
+│   ├── GameDetails.js     # Displays detailed information for a selected game
+│   ├── GameList.js        # Shows the list of games in a table
+│   ├── GameGrid.js        # Shows the list of games in a grid view
+│   ├── SearchBar.js       # Provides the search functionality
+│   └── Home.js            # Main page where the search bar and game list/grid are displayed
+├── utils/
+│   └── platformIcons.js   # Handles platform icons for different gaming platforms
+├── services/
+│   └── api.js             # Fetches data from the RAWG API
+└── styles.scss            # Global and component-specific styling
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## API Integration
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+The application uses the **RAWG API** to fetch game data. To use the API:
+- Sign up for an API key at [RAWG.io](https://rawg.io/apidocs).
+- Use the API key in your `.env` file.
 
-## Learn More
+### Example API Call
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```js
+const fetchGames = async (query, genre, score, platform) => {
+  const response = await fetch(
+    `https://api.rawg.io/api/games?key=${process.env.REACT_APP_RAWG_API_KEY}&search=${query}&genres=${genre}&platforms=${platform}&metacritic=${score}`
+  );
+  const data = await response.json();
+  return data.results;
+};
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
 
-### Code Splitting
+Feel free to submit issues or pull requests if you'd like to contribute to this project!
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## License
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the MIT License.

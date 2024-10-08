@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Box, Card, CardContent, Typography, Grid2, CircularProgress, Chip } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { fetchGameDetails } from "../services/api";
 import platformIcons from "../utils/platformIcons";
@@ -11,7 +12,6 @@ const GameDetails = () => {
   useEffect(() => {
     const loadGameDetails = async () => {
       const gameData = await fetchGameDetails(id);
-      console.log("gameData", gameData);
       setGame(gameData);
       setLoading(false);
     };
@@ -19,106 +19,127 @@ const GameDetails = () => {
     loadGameDetails();
   }, [id]);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <CircularProgress />;
 
   return (
-    <div className="game-details-container">
-      <h1 className="game-title">{game.name}</h1>
-      <img src={game.background_image} alt={game.name} className="game-image" />
+    <Box sx={{ padding: "20px" }}>
+      <Card sx={{ padding: 2 }}>
+        <Typography variant="h3" component="h1" gutterBottom>
+          {game.name}
+        </Typography>
+        <img src={game.background_image} alt={game.name} style={{ width: "100%", borderRadius: "8px" }} />
 
-      <div className="game-meta">
-        <p>Released: {game.released}</p>
-        <p>Metacritic: {game.metacritic}</p>
-        <p>Playtime: {game.playtime} hours</p>
-        <p>Rating: {game.rating}</p>
-        <p>Rating Count: {game.ratings_count}</p>
-      </div>
+        <CardContent>
+          <Typography variant="h5" gutterBottom>
+            Game Details
+          </Typography>
 
-      <div className="game-description">
-        <p>{game.description_raw}</p>
-      </div>
-      <p>Platforms:</p>
-      <div>
-        {game.parent_platforms.map((platformObj) => (
-          <img
-            key={platformObj.platform.id}
-            className="game-platform-icon"
-            src={
-              platformIcons[platformObj.platform.name] ||
-              "default-platform-icon.svg"
-            }
-            alt={platformObj.platform.name}
-            title={platformObj.platform.name}
-          />
-        ))}
-        <div>
-          <p>Genres:</p>
-          {game.genres.map((genre) => (
-            <span key={genre.id} className="genre">
-              {genre.name}
-            </span>
-          ))}
-        </div>
-      </div>
-      <p>Available in Stores:</p>
-      <div>
-        {game.stores.map((store) => (
-          <span key={store.id} className="store">
-            {store.store.name}
-          </span>
-        ))}
-      </div>
+          <Grid2 container spacing={2}>
+            <Grid2 item xs={12} md={4}>
+              <Typography variant="body1">Released: {game.released}</Typography>
+            </Grid2>
+            <Grid2 item xs={12} md={4}>
+              <Typography variant="body1">Metacritic: {game.metacritic}</Typography>
+            </Grid2>
+            <Grid2 item xs={12} md={4}>
+              <Typography variant="body1">Playtime: {game.playtime} hours</Typography>
+            </Grid2>
+            <Grid2 item xs={12} md={4}>
+              <Typography variant="body1">Rating: {game.rating}</Typography>
+            </Grid2>
+            <Grid2 item xs={12} md={4}>
+              <Typography variant="body1">Rating Count: {game.ratings_count}</Typography>
+            </Grid2>
+          </Grid2>
 
-      <p>Tags:</p>
-      <div>
-        {game.tags.map((tag) => (
-          <span key={tag.id} className="tag">
-            {tag.name}
-          </span>
-        ))}
-      </div>
+          <Box mt={2}>
+            <Typography variant="h6">Platforms:</Typography>
+            <Box display="flex" gap={1}>
+              {game.parent_platforms.map((platformObj) => (
+                <Box
+                  key={platformObj.platform.id}
+                  sx={{
+                    width: "30px",
+                    height: "30px",
+                    backgroundColor: "#000",
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  <img
+                    src={platformIcons[platformObj.platform.name] || "default-platform-icon.svg"}
+                    alt={platformObj.platform.name}
+                    title={platformObj.platform.name}
+                    style={{ width: "20px", height: "20px", filter: "brightness(0) invert(1)" }}
+                  />
+                </Box>
+              ))}
+            </Box>
+          </Box>
 
-      <p>Developers:</p>
-      <div>
-        {game.developers.map((developer) => (
-          <span key={developer.id} className="developer">
-            {developer.name}
-          </span>
-        ))}
-      </div>
+          <Box mt={2}>
+            <Typography variant="h6">Genres:</Typography>
+            {game.genres.map((genre) => (
+              <Chip key={genre.id} label={genre.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+            ))}
+          </Box>
 
-      <p>Publishers:</p>
-      <div>
-        {game.publishers.map((publisher) => (
-          <span key={publisher.id} className="publisher">
-            {publisher.name}
-          </span>
-        ))}
-      </div>
+          <Box mt={2}>
+            <Typography variant="h6">Stores:</Typography>
+            {game.stores.map((store) => (
+              <Chip key={store.id} label={store.store.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+            ))}
+          </Box>
 
-      <div className="game-screenshots">
-        <p>Screenshots:</p>
-        {game.screenshots?.map((screenshot, index) => (
-          <img
-            key={index}
-            src={screenshot.image}
-            alt="screenshot"
-            className="game-screenshot"
-          />
-        ))}
-      </div>
+          <Box mt={2}>
+            <Typography variant="h6">Developers:</Typography>
+            {game.developers.map((developer) => (
+              <Chip key={developer.id} label={developer.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+            ))}
+          </Box>
 
-      {game.website && (
-        <div className="game-website">
-          <p>
-            Official Website:{" "}
-            <a href={game.website} target="_blank" rel="noopener noreferrer">
-              {game.website}
-            </a>
-          </p>
-        </div>
-      )}
-    </div>
+          <Box mt={2}>
+            <Typography variant="h6">Publishers:</Typography>
+            {game.publishers.map((publisher) => (
+              <Chip key={publisher.id} label={publisher.name} sx={{ marginRight: "5px", marginBottom: "5px" }} />
+            ))}
+          </Box>
+
+          {game.website && (
+            <Box mt={2}>
+              <Typography variant="h6">
+                Official Website:{" "}
+                <a href={game.website} target="_blank" rel="noopener noreferrer">
+                  {game.website}
+                </a>
+              </Typography>
+            </Box>
+          )}
+
+          <Box mt={2}>
+            <Typography variant="h6">Description:</Typography>
+            <Typography>{game.description_raw}</Typography>
+          </Box>
+
+          <Box mt={2}>
+            <Typography variant="h6">Screenshots:</Typography>
+            <Grid2 container spacing={2}>
+              {game.screenshots?.map((screenshot, index) => (
+                <Grid2 item xs={12} sm={6} md={4} key={index}>
+                  <img
+                    src={screenshot.image}
+                    alt={`Screenshot ${index + 1}`}
+                    style={{ width: "100%", borderRadius: "8px" }}
+                  />
+                </Grid2>
+              ))}
+            </Grid2>
+          </Box>
+        </CardContent>
+      </Card>
+    </Box>
   );
 };
 

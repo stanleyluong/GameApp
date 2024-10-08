@@ -2,22 +2,29 @@ import React from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 import GameDetails from "./components/GameDetails";
 import Home from "./components/Home";
-import "./styles.scss";
+import "./styles.css";
+import { Link } from "react-router-dom";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+
 import {
   createTheme,
   ThemeProvider,
   CssBaseline,
-  Button,
-  Typography,
   Box,
+  ToggleButtonGroup,
+  ToggleButton,
 } from "@mui/material";
+import GridViewIcon from "@mui/icons-material/GridView";
+import ViewListIcon from "@mui/icons-material/ViewList";
+
 import { useState } from "react";
 import logo from "./assets/logo.webp";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
+  const [view, setView] = useState("table"); // Initialize with table view
 
-  // Light theme
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -31,7 +38,6 @@ function App() {
     },
   });
 
-  // Dark theme
   const darkTheme = createTheme({
     palette: {
       mode: "dark",
@@ -45,10 +51,12 @@ function App() {
     },
   });
 
-  const handleToggle = () => {
+  const handleToggleDarkMode = () => {
     setDarkMode((prevMode) => !prevMode);
   };
-
+  const handleViewChange = (event, nextView) => {
+    setView(nextView);
+  };
   return (
     <ThemeProvider theme={darkMode ? darkTheme : lightTheme}>
       <CssBaseline />
@@ -61,22 +69,48 @@ function App() {
             padding: "20px",
           }}
         >
-          {/* Logo and Title */}
-          <Box sx={{ display: "flex", alignItems: "center" }}>
-            <img
-              src={logo}
-              alt="GameApp Logo"
-              style={{ width: "100px", height: "100px", marginRight: "10px" }}
-            />
-          </Box>
+          <ToggleButtonGroup
+            value={darkMode ? "dark" : "light"}
+            exclusive
+            onChange={handleToggleDarkMode}
+            aria-label="mode toggle"
+          >
+            <ToggleButton value="dark" aria-label="dark mode">
+              <DarkModeIcon />
+            </ToggleButton>
+            <ToggleButton value="light" aria-label="light mode">
+              <LightModeIcon />
+            </ToggleButton>
+          </ToggleButtonGroup>
+          <Link to="/">
+  <img
+    src={logo}
+    alt="GameApp Logo"
+    style={{ 
+      width: "100px", 
+      height: "100px", 
+      marginRight: "10px", 
+      borderRadius: "12px" // Add rounded corners
+    }}
+  />
+</Link>
 
-          {/* Dark Mode Toggle Button */}
-          <Button variant="contained" onClick={handleToggle}>
-            {darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
-          </Button>
+            <ToggleButtonGroup
+              value={view}
+              exclusive
+              onChange={handleViewChange}
+              aria-label="view toggle"
+            >
+              <ToggleButton value="table" aria-label="table view">
+                <ViewListIcon />
+              </ToggleButton>
+              <ToggleButton value="list" aria-label="list view">
+                <GridViewIcon />
+              </ToggleButton>
+            </ToggleButtonGroup>
         </Box>
         <Routes>
-          <Route path="/" element={<Home darkMode={darkMode} />} />
+          <Route path="/" element={<Home darkMode={darkMode} view={view} />} />
           <Route
             path="/game/:id"
             element={<GameDetails darkMode={darkMode} />}

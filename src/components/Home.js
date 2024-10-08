@@ -1,19 +1,18 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { fetchGames } from "../services/api";
-import GameList from "./GameList";
+import GameGrid from "./GameGrid";
 import SearchBar from "./SearchBar";
-import GameTable from "./GameTable";
+import GameList from "./GameList";
 
-const Home = (darkMode) => {
+const Home = (props) => {
   const [games, setGames] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  // Initial load of games when the component mounts
   useEffect(() => {
     const loadInitialGames = async () => {
       setLoading(true);
-      const initialGames = await fetchGames(); // Fetch without parameters
+      const initialGames = await fetchGames();
       setGames(initialGames);
       setLoading(false);
     };
@@ -23,25 +22,21 @@ const Home = (darkMode) => {
   const handleSearch = async (query, genre, score, platform) => {
     setLoading(true);
     const gameResults = await fetchGames(query, genre, score, platform);
-    console.log("gameResults", gameResults);
     setGames(gameResults);
     setLoading(false);
   };
-
   return (
     <div className="home-container">
-      {/* Search bar on the left */}
       <div className="sidebar">
-        <SearchBar onSearch={handleSearch} darkMode={darkMode} />
+        <SearchBar onSearch={handleSearch} darkMode={props.darkMode} />
       </div>
-
-      {/* Game list on the right */}
-      {/* <div>{loading ? <CircularProgress /> : <GameList games={games} />}</div> */}
       <div>
         {loading ? (
           <CircularProgress />
+        ) : props.view === "table" ? (
+          <GameList games={games} onSearch={handleSearch} />
         ) : (
-          <GameTable games={games} onSearch={handleSearch} />
+          <GameGrid games={games} onSearch={handleSearch} />
         )}
       </div>
     </div>

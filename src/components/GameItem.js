@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import platformIcons from "../utils/platformIcons"; // Importing the reusable icons
+import { Card, CardMedia, CardContent, Typography, Box } from "@mui/material";
+import platformIcons from "../utils/platformIcons";
 
 const GameItem = ({ game }) => {
   return (
@@ -8,34 +9,60 @@ const GameItem = ({ game }) => {
       to={`/game/${game.id}`}
       style={{ textDecoration: "none", color: "inherit" }}
     >
-      <div className="game-item">
-        <img
-          className="game-thumbnail"
-          src={game.background_image || "placeholder.jpg"}
+      <Card sx={{ maxWidth: 345, margin: "15px", backgroundColor: "#2c2c2c" }}>
+        {/* Game Image */}
+        <CardMedia
+          component="img"
+          height="140"
+          image={game.background_image || "placeholder.jpg"}
           alt={game.name}
         />
-        <div className="game-description">
-          <p className="game-name">{game.name}</p>
-          <p>Released: {game.released}</p>
-          <p>Metacritic: {game.metacritic || "N/A"}</p>
-
-          {/* Display platform icons */}
-          <div className="game-platforms">
+        
+        {/* Game Details */}
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="div" color="#fff">
+            {game.name}
+          </Typography>
+          <Typography variant="body2" color="#b0b0b0">
+            Released: {game.released}
+          </Typography>
+          <Typography variant="body2" color="#b0b0b0">
+            Metacritic: {game.metacritic || "N/A"}
+          </Typography>
+          
+          {/* Game Platforms */}
+          <Box sx={{ display: "flex", gap: 1, marginTop: "10px" }}>
             {game.parent_platforms?.map((platformObj) => (
-              <img
+              <Box
                 key={platformObj.platform.id}
-                className="game-platform-icon"
-                src={
-                  platformIcons[platformObj.platform.name] ||
-                  "default-platform-icon.svg"
-                }
-                alt={platformObj.platform.name}
-                title={platformObj.platform.name}
-              />
+                sx={{
+                  width: "30px",
+                  height: "30px",
+                  backgroundColor: "#000",
+                  borderRadius: "50%",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={
+                    platformIcons[platformObj.platform.name] ||
+                    "default-platform-icon.svg"
+                  }
+                  alt={platformObj.platform.name}
+                  title={platformObj.platform.name}
+                  style={{
+                    width: "20px",
+                    height: "20px",
+                    filter: "brightness(0) invert(1)",
+                  }}
+                />
+              </Box>
             ))}
-          </div>
-        </div>
-      </div>
+          </Box>
+        </CardContent>
+      </Card>
     </Link>
   );
 };
