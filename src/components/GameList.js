@@ -12,26 +12,45 @@ import {
   Box,
 } from "@mui/material";
 import platformIcons from "../utils/platformIcons";
-import { useNavigate } from "react-router-dom"; // Use for programmatic navigation
+import { useNavigate } from "react-router-dom";
+import NoGamesFound from "./NoGamesFound";
 
-const GameList = ({ games }) => {
-  const [order, setOrder] = useState("asc");
-  const [orderBy, setOrderBy] = useState("name");
+const GameList = ({ games, orderBy: initialOrderBy, order: initialOrder, onSortChange }) => {
+  const [order, setOrder] = useState(initialOrder);
+  const [orderBy, setOrderBy] = useState(initialOrderBy);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // Initialize navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
-    if (Array.isArray(games) && games.length > 0) {
+    if (Array.isArray(games)) {
       setLoading(false);
-    } else {
-      setLoading(true);
     }
   }, [games]);
 
   const handleRequestSort = (property) => {
     const isAsc = orderBy === property && order === "asc";
-    setOrder(isAsc ? "desc" : "asc");
+    const newOrder = isAsc ? "desc" : "asc";
+    setOrder(newOrder);
     setOrderBy(property);
+    onSortChange(property, newOrder);
+  };
+
+  const descendingComparator = (a, b, orderBy) => {
+    if (orderBy === "metacritic") {
+      const aScore = a.metacritic || -1; // Treat null/undefined as -1
+      const bScore = b.metacritic || -1; // Treat null/undefined as -1
+      return bScore - aScore;
+    } else {
+      if (b[orderBy] < a[orderBy]) return -1;
+      if (b[orderBy] > a[orderBy]) return 1;
+      return 0;
+    }
+  };
+
+  const getComparator = (order, orderBy) => {
+    return order === "desc"
+      ? (a, b) => descendingComparator(a, b, orderBy)
+      : (a, b) => -descendingComparator(a, b, orderBy);
   };
 
   const sortGames = (games, comparator) => {
@@ -44,25 +63,11 @@ const GameList = ({ games }) => {
     return stabilizedThis.map((el) => el[0]);
   };
 
-  const descendingComparator = (a, b, orderBy) => {
-    if (b[orderBy] < a[orderBy]) {
-      return -1;
-    }
-    if (b[orderBy] > a[orderBy]) {
-      return 1;
-    }
-    return 0;
-  };
+  const filteredGames = Array.isArray(games) ? sortGames(games, getComparator(order, orderBy)) : [];
 
-  const getComparator = (order, orderBy) => {
-    return order === "desc"
-      ? (a, b) => descendingComparator(a, b, orderBy)
-      : (a, b) => -descendingComparator(a, b, orderBy);
+  const handleRowClick = (id) => {
+    navigate(`/game/${id}`);
   };
-
-  const filteredGames = Array.isArray(games)
-    ? sortGames(games, getComparator(order, orderBy))
-    : [];
 
   if (loading) {
     return (
@@ -71,6 +76,7 @@ const GameList = ({ games }) => {
           display: "flex",
           justifyContent: "center",
           height: "100vh",
+          alignItems: "center",
         }}
       >
         <CircularProgress />
@@ -78,19 +84,10 @@ const GameList = ({ games }) => {
     );
   }
 
-  if (!Array.isArray(filteredGames) || filteredGames.length === 0) {
-    return (
-      <Box sx={{ textAlign: "center", padding: "20px" }}>
-        No games found.
-      </Box>
-    );
+  if (!filteredGames.length) {
+    return <NoGamesFound />;
+
   }
-
-  // Function to handle row click
-  const handleRowClick = (gameId) => {
-    navigate(`/game/${gameId}`); // Navigate to the game details page
-  };
-
   return (
     <TableContainer component={Paper}>
       <Table>
@@ -109,15 +106,6 @@ const GameList = ({ games }) => {
 
             <TableCell align="right">
               <TableSortLabel
-                active={orderBy === "released"}
-                direction={orderBy === "released" ? order : "asc"}
-                onClick={() => handleRequestSort("released")}
-              >
-                Release Date
-              </TableSortLabel>
-            </TableCell>
-            <TableCell align="right">
-              <TableSortLabel
                 active={orderBy === "metacritic"}
                 direction={orderBy === "metacritic" ? order : "asc"}
                 onClick={() => handleRequestSort("metacritic")}
@@ -125,6 +113,7 @@ const GameList = ({ games }) => {
                 Metacritic Score
               </TableSortLabel>
             </TableCell>
+
             <TableCell align="right">Platforms</TableCell>
           </TableRow>
         </TableHead>
@@ -132,7 +121,7 @@ const GameList = ({ games }) => {
           {filteredGames.map((game) => (
             <TableRow
               key={game.id}
-              onClick={() => handleRowClick(game.id)} // Use onClick to trigger navigation
+              onClick={() => handleRowClick(game.id)}
               sx={{
                 cursor: "pointer",
                 "&:hover": {
@@ -144,20 +133,14 @@ const GameList = ({ games }) => {
                 <img
                   src={game.background_image || "placeholder.jpg"}
                   alt={game.name}
-                  style={{
-                    width: "50px",
-                    height: "50px",
-                    objectFit: "cover",
-                    borderRadius: "4px",
-                  }}
+                  style={{ width: "50px", height: "50px", objectFit: "cover", borderRadius: "4px" }}
                 />
               </TableCell>
               <TableCell>{game.name}</TableCell>
-              <TableCell align="right">{game.released}</TableCell>
-              <TableCell align="right">{game.metacritic}</TableCell>
+              <TableCell align="right">{game.metacritic !== null ? game.metacritic : "N/A"}</TableCell>
               <TableCell align="right">
                 <Box display="flex" justifyContent="flex-end" gap={1}>
-                  {game?.parent_platforms?.map((platformObj) => (
+                  {game.parent_platforms.map((platformObj) => (
                     <Box
                       key={platformObj.platform.id}
                       sx={{

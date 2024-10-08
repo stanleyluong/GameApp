@@ -13,50 +13,46 @@ import React, { useEffect, useState } from "react";
 import { fetchGenres, fetchPlatforms } from "../services/api";
 import { useSearchParams } from "react-router-dom";
 
+const CACHE_EXPIRY_TIME = 1000 * 60 * 60 * 24; // 24 hours
+
 const SearchBar = ({ onSearch, darkMode }) => {
   const [queryParams, setQueryParams] = useSearchParams();
-  
+
   const [query, setQuery] = useState(queryParams.get("query") || "");
   const [genre, setGenre] = useState(queryParams.get("genre") || "");
   const [platform, setPlatform] = useState(queryParams.get("platform") || "");
   const [score, setScore] = useState([
     Number(queryParams.get("scoreMin")) || 0,
-    Number(queryParams.get("scoreMax")) || 100
+    Number(queryParams.get("scoreMax")) || 100,
   ]);
 
   const [genres, setGenres] = useState([]);
   const [platforms, setPlatforms] = useState([]);
 
+  const fetchAndCacheData = async (fetchFunction, cacheKey, setState) => {
+    const cachedData = JSON.parse(localStorage.getItem(cacheKey));
+    const cacheTime = localStorage.getItem(`${cacheKey}_timestamp`);
+
+    if (cachedData && cacheTime && Date.now() - cacheTime < CACHE_EXPIRY_TIME) {
+      setState(cachedData);
+    } else {
+      const data = await fetchFunction();
+      setState(data);
+      localStorage.setItem(cacheKey, JSON.stringify(data));
+      localStorage.setItem(`${cacheKey}_timestamp`, Date.now());
+    }
+  };
+
   useEffect(() => {
     const loadFilters = async () => {
-      const genresData = await fetchGenres();
-      const platformsData = await fetchPlatforms();
-  
-      const sortedGenres = genresData.sort((a, b) =>
-        a.name.localeCompare(b.name),
-      );
-      const sortedPlatforms = platformsData.sort((a, b) =>
-        a.name.localeCompare(b.name),
-      );
-  
-      setGenres(sortedGenres);
-      setPlatforms(sortedPlatforms);
-  
-      if (!sortedGenres.some((g) => g.id === genre)) {
-        setGenre("");  
-      }
-  
-      if (!sortedPlatforms.some((p) => p.id === platform)) {
-        setPlatform("");  
-      }
+      await fetchAndCacheData(fetchGenres, "cachedGenres", setGenres);
+      await fetchAndCacheData(fetchPlatforms, "cachedPlatforms", setPlatforms);
     };
     loadFilters();
-  }, [genre, platform]);
-  
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     setQueryParams({
       query,
       genre,
@@ -64,7 +60,6 @@ const SearchBar = ({ onSearch, darkMode }) => {
       scoreMin: score[0],
       scoreMax: score[1],
     });
-
     onSearch(query, genre, score, platform);
   };
 
@@ -79,7 +74,7 @@ const SearchBar = ({ onSearch, darkMode }) => {
       return score[0] === 0 && score[1] === 100 ? "#717171" : "black";
     }
   };
-  
+
   const border = darkMode
     ? "1px solid rgba(255, 255, 255, 0.23)"
     : "1px solid silver";
@@ -122,7 +117,7 @@ const SearchBar = ({ onSearch, darkMode }) => {
           value={genre}
           onChange={(e) => setGenre(e.target.value)}
         >
-          <MenuItem value=''>All Genres</MenuItem>
+          <MenuItem value="">All Genres</MenuItem>
           {genres.map((g) => (
             <MenuItem key={g.id} value={g.id}>
               {g.name}
@@ -138,7 +133,7 @@ const SearchBar = ({ onSearch, darkMode }) => {
           value={platform}
           onChange={(e) => setPlatform(e.target.value)}
         >
-          <MenuItem value=''>All Platforms</MenuItem>
+          <MenuItem value="">All Platforms</MenuItem>
           {platforms.map((p) => (
             <MenuItem key={p.id} value={p.id}>
               {p.name}

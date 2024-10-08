@@ -6,7 +6,7 @@ export const fetchGames = async (
   genre = "",
   score = "",
   platform = "",
-  pageSize = 40,
+  pageSize = 5,
 ) => {
   try {
     let url = `${apiUrl}/games?key=${apiKey}&page_size=${pageSize}`;
