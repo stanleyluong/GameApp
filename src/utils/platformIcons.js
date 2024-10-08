@@ -1,15 +1,27 @@
+import PCIcon from "../assets/PC.svg";
+import PlayStationIcon from "../assets/PlayStation.svg";
+import XboxIcon from "../assets/Xbox.svg";
+import NintendoIcon from "../assets/Nintendo.svg";
+import iOSIcon from "../assets/iOS.svg";
+import LinuxIcon from "../assets/Linux.svg";
+import AndroidIcon from "../assets/Android.svg";
+import SEGAIcon from "../assets/SEGA.svg";
+import WebIcon from "../assets/Web.svg";
+import AppleMacintoshIcon from "../assets/Apple-Macintosh.svg";
+import CommodoreAmigaIcon from "../assets/Commodore-Amiga.svg";
+
 const platformIcons = {
-  PC: "/PC.svg",
-  PlayStation: "/PlayStation.svg",
-  Xbox: "/Xbox.svg",
-  Nintendo: "/Nintendo.svg",
-  iOS: "/iOS.svg",
-  Linux: "/Linux.svg",
-  Android: "/Android.svg",
-  SEGA: "/SEGA.svg",
-  Web: "/Web.svg",
-  "Apple Macintosh": "/Apple%20Macintosh.svg",
-  "Commodore Amiga": "/Commodore-Amiga.svg",
+  PC: PCIcon,
+  PlayStation: PlayStationIcon,
+  Xbox: XboxIcon,
+  Nintendo: NintendoIcon,
+  iOS: iOSIcon,
+  Linux: LinuxIcon,
+  Android: AndroidIcon,
+  SEGA: SEGAIcon,
+  Web: WebIcon,
+  "Apple-Macintosh": AppleMacintoshIcon,
+  "Commodore Amiga": CommodoreAmigaIcon,
 };
 
 export default platformIcons;
