@@ -23,8 +23,7 @@ import logo from "./assets/logo.webp";
 
 function App() {
   const [darkMode, setDarkMode] = useState(false);
-  const [view, setView] = useState("table"); // Initialize with table view
-
+  const [view, setView] = useState("list"); 
   const lightTheme = createTheme({
     palette: {
       mode: "light",
@@ -96,12 +95,12 @@ function App() {
           </Link>
 
           <ToggleButtonGroup
-            value={view}
+            value={view === 'grid' ? 'grid' : 'list'}
             exclusive
             onChange={handleViewChange}
             aria-label="view toggle"
           >
-            <ToggleButton value="table" aria-label="table view">
+            <ToggleButton value="grid" aria-label="grid view">
               <ViewListIcon />
             </ToggleButton>
             <ToggleButton value="list" aria-label="list view">

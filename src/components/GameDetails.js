@@ -28,7 +28,6 @@ const GameDetails = () => {
   }, [id]);
 
   if (loading) return <CircularProgress />;
-// console.log('gamedata', game)
   return (
     <Box sx={{ padding: "20px" }}>
       <Card sx={{ padding: 2 }}>

@@ -3,6 +3,7 @@ import { CircularProgress, Box } from "@mui/material";
 import { fetchGames } from "../services/api";
 import SearchBar from "./SearchBar";
 import GameList from "./GameList";
+import GameGrid from "./GameGrid";
 import { useSearchParams } from "react-router-dom";
 
 const Home = (props) => {
@@ -31,7 +32,6 @@ const Home = (props) => {
     };
     loadGames();
   }, [query, genre, platform, scoreMin, scoreMax]);
-
   // Function to handle search and update query params
   const handleSearch = (query, genre, score, platform) => {
     setQueryParams({
@@ -76,11 +76,15 @@ const Home = (props) => {
             <CircularProgress />
           </Box>
         ) : (
+          props.view === "grid" ?
           <GameList
             games={games}
             orderBy={orderBy}
             order={order}
             onSortChange={handleSortChange}
+          /> : 
+          <GameGrid
+          games={games}
           />
         )}
       </div>

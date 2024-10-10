@@ -25,7 +25,6 @@ export const fetchGames = async (
     if (platform) {
       url += `&platforms=${encodeURIComponent(platform)}`;
     }
-
     const response = await fetch(url);
     if (!response.ok) throw new Error(`Failed to fetch: ${response.status}`);
 
